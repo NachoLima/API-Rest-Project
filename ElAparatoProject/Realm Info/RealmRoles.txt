@@ -1,0 +1,5 @@
+Rol creado (acessos permitidos):
+
+repositor (productos/**)
+administrador (productos/**,ventas/**, usuarios/**)
+vendedor(ventas/**)

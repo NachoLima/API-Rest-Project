@@ -1,0 +1,36 @@
+spring:
+    cloud:
+        gateway:
+            default-filters:
+                - TokenRelay
+            routes:
+                -    id: productos
+                     predicates:
+                         - Path=/productos/**
+                     uri: http://localhost:8081
+                -    id: ventas
+                     predicates:
+                         - Path=/usuarios/**
+                     uri: http://localhost:8081
+                -    id: users
+                     predicates:
+                         - Path=/ventas/**
+                     uri: http://localhost:8081
+
+    security:
+        oauth2:
+            client:
+                provider:
+                    api-gateway-client:
+                        issuer-uri: http://localhost:8080/realms/el-aparato-nacholima
+                registration:
+                    api-gateway-client:
+                        authorization-grant-type: authorization_code
+                        client-id: api-gateway-client
+                        client-secret: ZKLRC1GkRy38tBMzGZ1DTMKJgolincbQ
+                        redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
+                        scope:
+                            - openid
+
+server:
+  port: 9090
